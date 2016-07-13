@@ -1,31 +1,30 @@
 package logic;
 
-import javafx.scene.control.Label;
+import javafx.animation.AnimationTimer;
 
-public class Babysteps extends Thread{
-    private long startingTime;
-    private double babystepsTime;
-    private Runnable task;
-    private Label label;
-    public void start(double seconds, Label label, Runnable endtask){
-        babystepsTime = seconds;
-        startingTime = System.currentTimeMillis();
-        this.label = label;
-        task = endtask;
-        run();
+public class Babysteps extends AnimationTimer{
+    private long Babystepstime,starttime;
+    private Runnable whiletask;
+    private Runnable endtask;
+    public Babysteps(int seconds, Runnable whiletask, Runnable endtask){
+        Babystepstime = seconds;
+        starttime = System.currentTimeMillis();
+        this.whiletask = whiletask;
+        this.endtask = endtask;
     }
-
-    public void run(){
-        long pastTime = System.currentTimeMillis()-startingTime;
-        while(pastTime<babystepsTime){
-            try {
-                label.setText(Double.toString(babystepsTime-pastTime));
+    @Override
+    public void handle(long now) {
+        long pastTime = System.currentTimeMillis()-starttime;
+        if(pastTime < Babystepstime){
+            try{
                 wait(1000);
+            }catch (Exception e){
+
             }
-            catch (InterruptedException e){
-                System.out.println("Error in Babysteps Thread");
-            }
+            whiletask.run();
+        }else{
+            endtask.run();
+            stop();
         }
-        task.run();
     }
 }
