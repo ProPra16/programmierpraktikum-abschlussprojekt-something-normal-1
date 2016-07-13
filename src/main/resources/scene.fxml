@@ -2,5 +2,5 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
 </BorderPane>

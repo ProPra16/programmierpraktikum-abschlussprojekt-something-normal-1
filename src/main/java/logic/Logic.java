@@ -1,8 +1,11 @@
 package logic;
 
+import gui.GUIController;
+
 public class Logic {
     public Phase current = Phase.RED;
-    public GUIController controller;
+    public gui.GUIController controller;
+    public Babysteps timer;
     //public ExerciseList exerciseList;
     //public Exercise currentExercise;
 
