@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <excercises>
-<exercise name="Römische Zahlen">
+<exercise name="Roemische Zahlen">
 <description>Konvertiert arabische in römische Zahlen.</description>
 <classes>
 <class name="RomanNumberConverter">
@@ -24,7 +24,7 @@ public void testSomething() {
 <timetracking value="True" />
 </config>
 </exercise>
-<exercise name="Römische Zahlen">
+<exercise name="Roemische Zahlen">
 <description>Konvertiert arabische in römische Zahlen.</description>
 <classes>
 <class name="RomanNumberConverter">
