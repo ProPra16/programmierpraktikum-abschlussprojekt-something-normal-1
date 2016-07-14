@@ -10,10 +10,11 @@ public class ExerciseList {
 	public Exercise get(int i) {
 		return exercises.get(i);
 	}
-
-
+	public int getSize()
+	{
+		return exercises.size();
+	}
 	public void addExercise(Exercise exercise) {
 		exercises.add(exercise);
 	}
-
 }

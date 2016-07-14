@@ -11,4 +11,18 @@ public class SNTestList {
 		tests.add(snTest);
 		
 	}
+	public void addTest(SNTest snTest) {
+		
+		tests.add(snTest);
+		
+	}
+	
+	public SNTest get(int i)
+	{
+		return tests.get(i);
+	}
+	public SNTest get()
+	{
+		return tests.get(0);
+	}
 }

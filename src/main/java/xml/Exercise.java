@@ -51,6 +51,9 @@ public class Exercise {
 		this.testList = testList;
 	}
 	
-	
+	@Override
+	public String toString() {
+	    return name;
+	} 
 	
 }

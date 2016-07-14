@@ -12,8 +12,12 @@ public class SNClassList {
 		
 	}
 	
-	public SNClass getClass(int i)
+	public SNClass get(int i)
 	{
 		return classes.get(i);
+	}
+	public SNClass get()
+	{
+		return classes.get(0);
 	}
 }
