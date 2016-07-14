@@ -1,3 +1,5 @@
+package gui;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import xml.Exercise;
@@ -10,7 +12,7 @@ public class Model {
 	ExerciseList exerciseList;
 	public Model()
 	{
-		XmlParser xmlParser = new XmlParser("exercises.xml");
+		XmlParser xmlParser = new XmlParser("src/main/resources/exercises.xml");
 		exerciseList = xmlParser.getList();
 		addData();
 		
