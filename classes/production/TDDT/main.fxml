@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="800.0" prefWidth="1024.0" snapToPixel="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.GUIController">
+  <children>
+    <Label fx:id="label_time" layoutX="448.0" layoutY="7.0" text="00:00" textAlignment="CENTER" textFill="RED">
+      <font>
+        <Font name="Agency FB Bold" size="48.0" />
+      </font>
+    </Label>
+    <Button fx:id="btn_compileTest" layoutX="589.0" layoutY="7.0" mnemonicParsing="false" onAction="#compileAndTest" prefHeight="58.0" prefWidth="107.0" text="Compile &amp; Test" />
+    <Button fx:id="btn_nextPhase" layoutX="293.0" layoutY="7.0" mnemonicParsing="false" onAction="#nextPhase" prefHeight="58.0" prefWidth="107.0" text="Next Phase" />
+    <TabPane layoutX="0.0" layoutY="84.0" prefHeight="454.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab closable="true" text="Test">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TextArea fx:id="textArea_test" disable="false" editable="true" layoutX="14.0" layoutY="7.0" prefHeight="416.0" prefWidth="996.0" text="" wrapText="true" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Code">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TextArea fx:id="textArea_code" layoutX="14.0" layoutY="7.0" prefHeight="416.0" prefWidth="996.0" text="" wrapText="true" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <TextArea fx:id="textArea_console" disable="false" editable="false" layoutX="14.0" layoutY="547.0" prefHeight="239.0" prefWidth="996.0" promptText="" text="" wrapText="true" />
+    <Label layoutX="24.0" layoutY="28.0" text="Exercises">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Label>
+    <ComboBox fx:id="combo_exercises" layoutX="118.0" layoutY="28.0" prefWidth="150.0" promptText="PICK EXECISE">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+  </children>
+</AnchorPane>

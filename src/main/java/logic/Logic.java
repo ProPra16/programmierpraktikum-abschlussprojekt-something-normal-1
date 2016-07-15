@@ -17,6 +17,9 @@ public class Logic {
     public Logic(GUIController controller){
         this.controller = controller;
         exerciseList = xml.getList();
+        controller.combo_exercises.setOnAction(e -> {
+            
+        });
         //show list to user
     }
 
