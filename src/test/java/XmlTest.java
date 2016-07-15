@@ -35,7 +35,7 @@ public class XmlTest {
 		XmlParser xmlParser = new XmlParser("src/test/java/exercises.xml");
 		ExerciseList exerciseList = xmlParser.getList();
 		
-		Assert.assertTrue( exerciseList.get(0).getConfig().isTimetracking());
+		Assert.assertTrue(exerciseList.get(0).getConfig().isTimetracking());
 	}
 	@Test
 	public void getTime() {
