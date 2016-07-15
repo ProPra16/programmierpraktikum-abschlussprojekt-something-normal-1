@@ -23,21 +23,12 @@ public class Logic {
         this.controller = controller;
         exerciseList = xml.getList();
         controller.combo_exercises.setOnAction(e -> {
-            if(currentPhase == Phase.STOP) {
-                currentExercise = controller.combo_exercises.getValue().getClone();
-                startExercise();
-            }else{
-                //dialog
-                System.out.print("dialog");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("are you sure?");
-                String s = "You are about to change the Exercise";
-                Optional<ButtonType> result = alert.showAndWait();
-                if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are about to start a new Exercise!", ButtonType.OK, ButtonType.CANCEL);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
                     currentExercise = controller.combo_exercises.getValue().getClone();
                     startExercise();
                 }
-            }
 
         });
         controller.btn_compileTest.setOnAction(e -> {
@@ -118,7 +109,16 @@ public class Logic {
         dialog.setTitle("Refractor");
         dialog.setHeaderText("Choose wisely:");
         Optional<String> result = dialog.showAndWait();
-        if(result.isPresent()) { System.out.println(result.get());}
+        if(result.isPresent()) {
+            if(result.get().equals("edit code")){
+                controller.textArea_code.setDisable(false);
+                controller.textArea_test.setDisable(true);
+            }else{
+                controller.textArea_code.setDisable(true);
+                controller.textArea_test.setDisable(false);
+            }
+
+        }
         //change phase-label
     }
 
