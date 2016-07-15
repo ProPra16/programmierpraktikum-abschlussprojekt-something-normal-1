@@ -89,17 +89,9 @@ public class Logic {
         }
         controller.textArea_console.setText(controller.textArea_console.getText()+"\n"+compilation+"\n"+testing+result);
         updatePhaseChanging(result);
-        /*if(cp[1].getNumberOfFailedTests() > 0) testing = cp[1].getNumberOfFailedTests()+" test(s) failed";
-        controller.textArea_console.setText(controller.textArea_console.getText()+"\n"+compilation+"\n"+testing);
-        if(currentPhase == Phase.RED){
-            if (cp[1].getNumberOfFailedTests() == 1) {
-                controller.btn_nextPhase.setDisable(false);
-            }
-        }*/
     }
 
     public void updatePhaseChanging(int result){
-        System.out.print(currentPhase.toString());
         if(currentPhase == Phase.RED){
             if(result < 0 || result == 1){
                 controller.textArea_console.setText(controller.textArea_console.getText()+"\nYou can change Phase now");
@@ -131,6 +123,7 @@ public class Logic {
             case REFRACTOR:
                 changeToRed();
         }
+        controller.btn_nextPhase.setDisable(true);
     }
 
     private void changeToGreen(){
@@ -143,9 +136,6 @@ public class Logic {
     private void changeToRed(){
         currentPhase = Phase.RED;
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
-        //unblock test-textarea
-        //block code-textarea
-        //change phase-label
         controller.textArea_test.setDisable(false);
         controller.textArea_code.setDisable(true);
         controller.label_phase.setText("PHASE=RED");
@@ -154,15 +144,24 @@ public class Logic {
         currentPhase = Phase.REFRACTOR;
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
         controller.label_phase.setText("PHASE=REFRACTOR");
-        //ask what the user wants to do (change code or change test) and unblock/block right the textareas
         String[] s = {"edit code","edit test"};
         List<String> dialogData = Arrays.asList(s);
         ChoiceDialog<String> dialog = new ChoiceDialog<>(dialogData.get(0),dialogData);
         dialog.setTitle("Refractor");
         dialog.setHeaderText("Choose wisely:");
         Optional<String> result = dialog.showAndWait();
-        if(result.isPresent()) { System.out.println(result.get());}
-        //change phase-label
+        if(result.isPresent()) {
+            if(result.get().equals("edit code")) {
+                controller.textArea_test.setDisable(true);
+                controller.textArea_code.setDisable(false);
+                controller.label_phase.setText(controller.label_phase.getText()+"(edit code)");
+            }
+            else{
+                controller.textArea_test.setDisable(false);
+                controller.textArea_code.setDisable(true);
+                controller.label_phase.setText(controller.label_phase.getText()+"(edit test)");
+            }
+        }
     }
 
 
