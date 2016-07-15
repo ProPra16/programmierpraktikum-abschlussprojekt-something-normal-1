@@ -70,8 +70,11 @@ public class Logic {
     }
 
     public void goToNextPhase(){
+        if(currentPhase = Phase.GREEN){
 
+        }
     }
+
     private void changeToGreen(){
         currentPhase = Phase.GREEN;
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
