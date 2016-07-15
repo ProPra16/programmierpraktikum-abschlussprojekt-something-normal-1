@@ -1,22 +1,32 @@
 package logic;
 
 import vk.core.api.CompilationUnit;
-import vk.core.internal.InternalCompiler;
-import vk.core.internal.InternalResult;
+import vk.core.api.CompilerFactory;
+import vk.core.api.JavaStringCompiler;
 import xml.Exercise;
 
 public class Compiler {
 
-    public static InternalResult[] compile(Exercise exercise) {
-        String test = exercise.getTestList().get().getTestContent();
-        String code = exercise.getClassList().get().getClassContent();
-        String name = exercise.getName();
-        CompilationUnit testcu = new CompilationUnit(name + "Test", test, true);
-        CompilationUnit codecu = new CompilationUnit(name + "Code", code, false);
-        InternalCompiler compiler = new InternalCompiler(new CompilationUnit[] {testcu, codecu});
+    private static boolean compileCode(CompilationUnit codeCU) {
+        JavaStringCompiler compiler = CompilerFactory.getCompiler(codeCU);
         compiler.compileAndRunTests();
-        InternalResult[] result = {(InternalResult)compiler.getCompilerResult(),(InternalResult)compiler.getTestResult()};
-        return result;
+        return !compiler.getCompilerResult().hasCompileErrors();
+    }
+
+    public static boolean isCompileable(Exercise exercise){
+        CompilationUnit codeCU = new CompilationUnit(exercise.getClassList().get().getName(),exercise.getClassList().get().getClassContent(),false);
+        if(compileCode(codeCU)) System.out.println("jop");
+        return compileCode(codeCU);
+    }
+
+    public static int compileAndRunTests(Exercise exercise){
+        CompilationUnit codeCU = new CompilationUnit(exercise.getClassList().get().getName(),exercise.getClassList().get().getClassContent(),false);
+        CompilationUnit testCU = new CompilationUnit(exercise.getTestList().get().getName(),exercise.getTestList().get().getTestContent(),true);
+        JavaStringCompiler compiler = CompilerFactory.getCompiler(codeCU, testCU);
+        compiler.compileAndRunTests();
+
+        if(compiler.getTestResult() == null) return 1; else return 2;
+
     }
 
 }

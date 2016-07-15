@@ -28,7 +28,7 @@ public class XmlTest {
 		XmlParser xmlParser = new XmlParser("src/test/java/exercises.xml");
 		ExerciseList exerciseList = xmlParser.getList();
 		
-		Assert.assertEquals("RomanNumberConverter", exerciseList.get(0).getClassList().getClass(0).getName());
+		Assert.assertEquals("RomanNumberConverter", exerciseList.get(0).getClassList().get().getName());
 	}
 	@Test
 	public void checkTimeTracking() {

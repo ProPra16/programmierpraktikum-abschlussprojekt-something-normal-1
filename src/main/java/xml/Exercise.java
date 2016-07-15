@@ -54,6 +54,16 @@ public class Exercise {
 	@Override
 	public String toString() {
 	    return name;
-	} 
+	}
+
+	public Exercise getClone(){
+		Exercise result = new Exercise();
+		result.setClassList(this.classList);
+		result.setConfig(this.config);
+		result.setDesc(this.getDesc());
+		result.setName(this.name);
+		result.setTestList(this.testList);
+		return result;
+	}
 	
 }

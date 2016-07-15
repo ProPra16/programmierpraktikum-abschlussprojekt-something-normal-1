@@ -1,7 +1,7 @@
 package logic;
 
 import gui.GUIController;
-import vk.core.internal.InternalResult;
+import vk.core.internal.InternalCompiler;
 import xml.Exercise;
 import xml.ExerciseList;
 import xml.XmlParser;
@@ -18,41 +18,59 @@ public class Logic {
         this.controller = controller;
         exerciseList = xml.getList();
         controller.combo_exercises.setOnAction(e -> {
-            
+            if(currentPhase == Phase.STOP) {
+                currentExercise = controller.combo_exercises.getValue().getClone();
+                startExercise();
+            }else{
+                //dialog
+            }
+
         });
+        controller.btn_compileTest.setOnAction(e -> {
+            currentExercise.getTestList().get().setTestContent(controller.textArea_test.getText());
+            currentExercise.getClassList().get().setClassContent(controller.textArea_code.getText());
+            compileAndTest();
+        } );
         //show list to user
     }
 
-    public void startExercise(Exercise exercise){
-        currentExercise = exercise;
-        //set test to textfield
-        //set code to textfield2
-        //set title to a label..
 
-        if(exercise.getConfig().isBabysteps()) {
-            timer = new Babysteps(exercise.getConfig().getTime(), () -> { /* change time-label */} , () -> { /* reset phase */});
+    public void startExercise(){
+        controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
+        controller.textArea_test.setText(currentExercise.getTestList().get().getTestContent());
+        controller.textArea_test.setDisable(false);
+        if(currentExercise.getConfig().isBabysteps()) {
+            timer = new Babysteps(currentExercise.getConfig().getTime(), () -> controller.label_time.setText(Long.toString(timer.Babystepstime-(System.currentTimeMillis()-timer.starttime)/1000)) ,
+                    () -> {
+                        timer.reset();
+                        //reset exercise to last phase
+                    });
             timer.start();
         }
+        controller.textArea_test.setOnKeyTyped( e -> {
+            controller.btn_nextPhase.setDisable(true);
+        });
+    }
+
+    public void compileAndTest(){
+        String compilation = "compilation successful";
+        String testing = "";
+        if(!Compiler.isCompileable(currentExercise)) compilation = "compilation failed";
+        else {
+            testing = Compiler.compileAndRunTests(currentExercise)+" test(s) failed";
+        }
+        controller.textArea_console.setText(controller.textArea_console.getText()+"\n"+compilation+"\n"+testing);
+        /*if(cp[1].getNumberOfFailedTests() > 0) testing = cp[1].getNumberOfFailedTests()+" test(s) failed";
+        controller.textArea_console.setText(controller.textArea_console.getText()+"\n"+compilation+"\n"+testing);
+        if(currentPhase == Phase.RED){
+            if (cp[1].getNumberOfFailedTests() == 1) {
+                controller.btn_nextPhase.setDisable(false);
+            }
+        }*/
     }
 
     public void goToNextPhase(){
-        if(currentExercise != null) {
-            InternalResult[] cp = Compiler.compile(currentExercise);
-            if (currentPhase == Phase.RED) {
-                if (cp[0].hasCompileErrors() || cp[1].getNumberOfFailedTests() == 1) {
-                    changeToGreen();
-                }
-            }
-            if (currentPhase == Phase.GREEN || currentPhase == Phase.REFRACTOR) {
-                //compile tests and code
-                //if it compiles and tests dont fail then change to (green -> refracor) (refractor -> red)
-                if (!cp[0].hasCompileErrors() || cp[1].getNumberOfFailedTests() == 0){
-                    if(currentPhase == Phase.GREEN) changeToRefractor();
-                    if(currentPhase == Phase.REFRACTOR) changeToRed();
-                }
 
-            }
-        }
     }
     private void changeToGreen(){
         currentPhase = Phase.GREEN;
