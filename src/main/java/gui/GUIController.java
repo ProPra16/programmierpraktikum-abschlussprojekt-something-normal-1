@@ -14,21 +14,21 @@ import xml.Exercise;
 public class GUIController implements Initializable {
 
     @FXML
-    private Label label_time;
+    public Label label_time;
     @FXML
-    private Button btn_nextPhase;
+    public Button btn_nextPhase;
     @FXML
-    private Button btn_compileTest;
+    public Button btn_compileTest;
     @FXML
-    private ComboBox<Exercise> combo_exercises;
+    public ComboBox<Exercise> combo_exercises;
     @FXML
-    private TextArea textArea_test;
+    public TextArea textArea_test;
     @FXML
-    private TextArea textArea_code;
+    public TextArea textArea_code;
     @FXML
-    private TextArea textArea_console;
+    public TextArea textArea_console;
 
-    private Model model;
+    public Model model;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,10 +43,4 @@ public class GUIController implements Initializable {
 
     }
 
-    public void compileAndTest() {
-        // button func
-    }
-    public void nextPhase() {
-        //  button func
-    }
 }

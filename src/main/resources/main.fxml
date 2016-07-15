@@ -15,8 +15,8 @@
         <Font name="Agency FB Bold" size="48.0" />
       </font>
     </Label>
-    <Button fx:id="btn_compileTest" layoutX="589.0" layoutY="7.0" mnemonicParsing="false" onAction="#compileAndTest" prefHeight="58.0" prefWidth="107.0" text="Compile &amp; Test" />
-    <Button fx:id="btn_nextPhase" layoutX="293.0" layoutY="7.0" mnemonicParsing="false" onAction="#nextPhase" prefHeight="58.0" prefWidth="107.0" text="Next Phase" />
+    <Button fx:id="btn_compileTest" layoutX="589.0" layoutY="7.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="107.0" text="Compile &amp; Test" />
+    <Button fx:id="btn_nextPhase" layoutX="293.0" disable="true" layoutY="7.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="107.0" text="Next Phase" />
     <TabPane layoutX="0.0" layoutY="84.0" prefHeight="454.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab closable="true" text="Test">
