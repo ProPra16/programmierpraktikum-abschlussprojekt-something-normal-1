@@ -14,7 +14,7 @@ import xml.Exercise;
 public class GUIController implements Initializable {
 
     @FXML
-    public Label label_time;
+    public Label label_time,label_phase;
     @FXML
     public Button btn_nextPhase;
     @FXML

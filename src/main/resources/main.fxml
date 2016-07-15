@@ -10,7 +10,12 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="800.0" prefWidth="1024.0" snapToPixel="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.GUIController">
   <children>
-    <Label fx:id="label_time" layoutX="448.0" layoutY="7.0" text="00:00" textAlignment="CENTER" textFill="RED">
+    <Label fx:id="label_time" layoutX="448.0" layoutY="7.0" text="000" textAlignment="CENTER" textFill="RED">
+      <font>
+        <Font name="Agency FB Bold" size="48.0" />
+      </font>
+    </Label>
+    <Label fx:id="label_phase" layoutX="700.0" layoutY="7.0" text="PHASE=STOP" textAlignment="CENTER" textFill="RED">
       <font>
         <Font name="Agency FB Bold" size="48.0" />
       </font>

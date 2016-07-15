@@ -39,6 +39,7 @@ public class Logic {
         controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
         controller.textArea_test.setText(currentExercise.getTestList().get().getTestContent());
         controller.textArea_test.setDisable(false);
+        controller.label_phase.setText("PHASE=RED");
         if(currentExercise.getConfig().isBabysteps()) {
             timer = new Babysteps(currentExercise.getConfig().getTime(), () -> controller.label_time.setText(Long.toString(timer.Babystepstime-(System.currentTimeMillis()-timer.starttime)/1000)) ,
                     () -> {
@@ -75,9 +76,9 @@ public class Logic {
     private void changeToGreen(){
         currentPhase = Phase.GREEN;
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
-        //block test-textarea
-        //unblock code-textarea
-        //change phase-label
+        controller.textArea_test.setDisable(true);
+        controller.textArea_code.setDisable(false);
+        controller.label_phase.setText("PHASE=GREEN");
     }
     private void changeToRed(){
         currentPhase = Phase.RED;
@@ -85,10 +86,14 @@ public class Logic {
         //unblock test-textarea
         //block code-textarea
         //change phase-label
+        controller.textArea_test.setDisable(false);
+        controller.textArea_code.setDisable(true);
+        controller.label_phase.setText("PHASE=RED");
     }
     private void changeToRefractor(){
         currentPhase = Phase.REFRACTOR;
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
+        controller.label_phase.setText("PHASE=REFRACTOR");
         //ask what the user wants to do (change code or change test) and unblock/block right the textareas
         //change phase-label
     }
