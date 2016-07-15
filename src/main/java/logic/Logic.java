@@ -1,10 +1,15 @@
 package logic;
 
 import gui.GUIController;
+import javafx.scene.control.*;
 import vk.core.internal.InternalCompiler;
 import xml.Exercise;
 import xml.ExerciseList;
 import xml.XmlParser;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class Logic {
     public Phase currentPhase = Phase.STOP;
@@ -23,6 +28,15 @@ public class Logic {
                 startExercise();
             }else{
                 //dialog
+                System.out.print("dialog");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("are you sure?");
+                String s = "You are about to change the Exercise";
+                Optional<ButtonType> result = alert.showAndWait();
+                if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+                    currentExercise = controller.combo_exercises.getValue().getClone();
+                    startExercise();
+                }
             }
 
         });
@@ -71,7 +85,9 @@ public class Logic {
     }
 
     public void goToNextPhase(){
-
+        if(currentPhase == Phase.GREEN) changeToRefractor();
+        if(currentPhase == Phase.RED) changeToGreen();
+        if(currentPhase == Phase.REFRACTOR) changeToRed();
     }
     private void changeToGreen(){
         currentPhase = Phase.GREEN;
@@ -95,6 +111,13 @@ public class Logic {
         if(currentExercise.getConfig().isBabysteps()) timer.reset();
         controller.label_phase.setText("PHASE=REFRACTOR");
         //ask what the user wants to do (change code or change test) and unblock/block right the textareas
+        String[] s = {"edit code","edit test"};
+        List<String> dialogData = Arrays.asList(s);
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(dialogData.get(0),dialogData);
+        dialog.setTitle("Refractor");
+        dialog.setHeaderText("Choose wisely:");
+        Optional<String> result = dialog.showAndWait();
+        if(result.isPresent()) { System.out.println(result.get());}
         //change phase-label
     }
 

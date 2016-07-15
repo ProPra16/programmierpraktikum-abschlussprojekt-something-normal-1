@@ -24,8 +24,9 @@ public class Compiler {
         CompilationUnit testCU = new CompilationUnit(exercise.getTestList().get().getName(),exercise.getTestList().get().getTestContent(),true);
         JavaStringCompiler compiler = CompilerFactory.getCompiler(codeCU, testCU);
         compiler.compileAndRunTests();
-
-        if(compiler.getTestResult() == null) return 1; else return 2;
+        JavaStringCompiler testcompiler = CompilerFactory.getCompiler(testCU, codeCU);
+        testcompiler.compileAndRunTests();
+        if(testcompiler.getTestResult() == null) return 1; else return 2;
 
     }
 
