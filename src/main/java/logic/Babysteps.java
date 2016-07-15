@@ -23,6 +23,8 @@ public class Babysteps extends AnimationTimer{
         }
     }
     public void reset(){
+        stop();
         starttime = System.currentTimeMillis();
+        start();
     }
 }

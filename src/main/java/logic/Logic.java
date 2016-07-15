@@ -18,6 +18,7 @@ public class Logic {
     public Babysteps timer;
     public ExerciseList exerciseList;
     public Exercise currentExercise;
+    public String startTest,startCode;
     private XmlParser xml = new XmlParser("src/main/resources/exercises.xml");
 
     public Logic(GUIController controller){
@@ -33,10 +34,14 @@ public class Logic {
                 Optional<ButtonType> result = alert.showAndWait();
                 if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                     currentExercise = controller.combo_exercises.getValue().getClone();
+                    startTest = currentExercise.getTestList().get().getTestContent();
+                    startCode = currentExercise.getClassList().get().getClassContent();
                     startExercise();
                 }
             }else {
                 currentExercise = controller.combo_exercises.getValue().getClone();
+                startTest = currentExercise.getTestList().get().getTestContent();
+                startCode = currentExercise.getClassList().get().getClassContent();
                 startExercise();
             }
 
@@ -61,7 +66,9 @@ public class Logic {
             timer = new Babysteps(currentExercise.getConfig().getTime(), () -> controller.label_time.setText(Long.toString(timer.Babystepstime-(System.currentTimeMillis()-timer.starttime)/1000)) ,
                     () -> {
                         timer.reset();
-                        //reset exercise to last phase
+                        controller.textArea_code.setText(startCode);
+                        controller.textArea_test.setText(startTest);
+
                     });
             timer.start();
         }
@@ -124,6 +131,8 @@ public class Logic {
                 changeToRed();
         }
         controller.btn_nextPhase.setDisable(true);
+        currentExercise.getTestList().get().setTestContent(controller.textArea_test.getText());
+        currentExercise.getClassList().get().setClassContent(controller.textArea_code.getText());
     }
 
     private void changeToGreen(){
