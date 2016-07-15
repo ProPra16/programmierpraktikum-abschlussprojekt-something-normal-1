@@ -3,7 +3,7 @@ package logic;
 import javafx.animation.AnimationTimer;
 
 public class Babysteps extends AnimationTimer{
-    private long Babystepstime,starttime;
+    public long Babystepstime,starttime;
     private Runnable whiletask;
     private Runnable endtask;
     public Babysteps(int seconds, Runnable whiletask, Runnable endtask){
@@ -15,12 +15,7 @@ public class Babysteps extends AnimationTimer{
     @Override
     public void handle(long now) {
         long pastTime = System.currentTimeMillis()-starttime;
-        if(pastTime < Babystepstime){
-            try{
-                wait(1000);
-            }catch (Exception e){
-
-            }
+        if(pastTime/1000 < Babystepstime){
             whiletask.run();
         }else{
             endtask.run();
