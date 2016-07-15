@@ -54,6 +54,7 @@ public class Logic {
         controller.textArea_test.setText(currentExercise.getTestList().get().getTestContent());
         controller.textArea_test.setDisable(false);
         controller.label_phase.setText("PHASE=RED");
+        if(timer != null) { timer.reset(); timer.stop(); controller.label_time.setText("00"); }
         if(currentExercise.getConfig().isBabysteps()) {
             timer = new Babysteps(currentExercise.getConfig().getTime(), () -> controller.label_time.setText(Long.toString(timer.Babystepstime-(System.currentTimeMillis()-timer.starttime)/1000)) ,
                     () -> {
