@@ -188,7 +188,18 @@ public class Logic {
         controller.btn_backToRed.setDisable(true);
         if(currentExercise.getConfig().isBabysteps()) startNewBabysteps();
         controller.label_phase.setText("PHASE=REFRACTOR");
-        String[] s = {"edit code","edit test","finish project and show statistics"};
+        String[] s;
+        if(currentExercise.getConfig().isTimetracking()) {
+            s = new String[3];
+            s[0] = "edit code";
+            s[1] = "edit test";
+            s[2] = "finish project and show statistics";
+        }else {
+            s = new String[3];
+            s[0] = "edit code";
+            s[1] = "edit test";
+            s[2] = "finish project and save it";
+        }
         List<String> dialogData = Arrays.asList(s);
         ChoiceDialog<String> dialog = new ChoiceDialog<>(dialogData.get(0),dialogData);
         dialog.setTitle("Refractor");
@@ -206,7 +217,9 @@ public class Logic {
                     controller.textArea_code.setDisable(true);
                     controller.label_phase.setText(controller.label_phase.getText() + "(edit test)");
                 }else{
-                    showStatistics.run();
+                    if(result.get().equals("finish project and save it")){
+                        //save it...
+                    }else showStatistics.run();
                 }
             }
         }

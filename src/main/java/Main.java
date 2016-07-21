@@ -37,6 +37,7 @@ public class Main extends Application {
             public void run() {
                 primaryStage.setScene(statsScene);
                 anal.loadTracking(TDDTLogic.timeLine);
+                primaryStage.show();
             }
         } );
 
