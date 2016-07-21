@@ -15,19 +15,12 @@ public class GUIController implements Initializable {
 
     @FXML
     public Label label_time,label_phase;
-    @FXML
     public Button btn_nextPhase;
-    @FXML
     public Button btn_compileTest;
-    @FXML
     public ComboBox<Exercise> combo_exercises;
-    @FXML
     public TextArea textArea_test;
-    @FXML
     public TextArea textArea_code;
-    @FXML
     public TextArea textArea_console;
-    @FXML
     public Button btn_backToRed;
 
     public Model model;
@@ -40,7 +33,7 @@ public class GUIController implements Initializable {
 
             // open a dialog and ask for if do you really want to change the exercise?
 
-            System.out.println("Item Selected");
+           // System.out.println("Item Selected");
         });
 
     }

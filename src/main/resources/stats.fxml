@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.StatsController" alignment="CENTER">
+    <Label GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="phase_label">
+        <font>
+            <Font name="Agency FB Bold" size="48.0" />
+        </font>
+    </Label>
+    <Label GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="time_label">
+        <font>
+            <Font name="Agency FB Bold" size="48.0" />
+        </font>
+    </Label>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1">code before:</Label>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="1">code after:</Label>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="3">test before:</Label>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="3">test before:</Label>
+    <TextArea fx:id="code_before" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextArea fx:id="code_after" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <TextArea fx:id="test_before" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <TextArea fx:id="test_after" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Button fx:id="next_phase" GridPane.columnIndex="0" GridPane.rowIndex="5">NEXT</Button>
+    <Button fx:id="prev_phase" GridPane.columnIndex="1" GridPane.rowIndex="5">PREVIOUS</Button>
+    <Button fx:id="btn_return" GridPane.rowIndex="6" GridPane.columnIndex="0">RETURN TO TDDT</Button>
+</GridPane>

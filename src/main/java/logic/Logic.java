@@ -19,11 +19,13 @@ public class Logic {
     public ExerciseList exerciseList;
     public Exercise currentExercise;
     public Tracking timeLine;
+    public Runnable showStatistics;
     private XmlParser xml = new XmlParser("src/main/resources/exercises.xml");
 
 
-    public Logic(GUIController controller){
+    public Logic(GUIController controller, Runnable showStatistics){
         currentPhase = Phase.STOP;
+        this.showStatistics = showStatistics;
         this.controller = controller;
         exerciseList = xml.getList();
         controller.combo_exercises.setOnAction(e -> {
@@ -60,7 +62,7 @@ public class Logic {
                     p= controller.label_phase.getText().contains("test") ? "REFRACTOR TEST": "REFRACTOR CODE";
             }
             if(currentExercise.getConfig().isTimetracking()) {
-                timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(), p);
+                timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(),controller.textArea_code.getText(),controller.textArea_test.getText(), p+" (back to red)");
                 timeLine.startPhase();
             }
             changeToRed();
@@ -144,7 +146,7 @@ public class Logic {
                 p= controller.label_phase.getText().contains("test") ? "REFRACTOR TEST": "REFRACTOR CODE";
         }
         if(currentExercise.getConfig().isTimetracking()) {
-            timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(), p);
+            timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(), controller.textArea_code.getText(), controller.textArea_test.getText(), p);
             timeLine.startPhase();
         }
         switch (currentPhase) {
@@ -186,7 +188,7 @@ public class Logic {
         controller.btn_backToRed.setDisable(true);
         if(currentExercise.getConfig().isBabysteps()) startNewBabysteps();
         controller.label_phase.setText("PHASE=REFRACTOR");
-        String[] s = {"edit code","edit test"};
+        String[] s = {"edit code","edit test","finish project and show statistics"};
         List<String> dialogData = Arrays.asList(s);
         ChoiceDialog<String> dialog = new ChoiceDialog<>(dialogData.get(0),dialogData);
         dialog.setTitle("Refractor");
@@ -199,9 +201,13 @@ public class Logic {
                 controller.label_phase.setText(controller.label_phase.getText()+"(edit code)");
             }
             else{
-                controller.textArea_test.setDisable(false);
-                controller.textArea_code.setDisable(true);
-                controller.label_phase.setText(controller.label_phase.getText()+"(edit test)");
+                if(result.get().equals("edit test")) {
+                    controller.textArea_test.setDisable(false);
+                    controller.textArea_code.setDisable(true);
+                    controller.label_phase.setText(controller.label_phase.getText() + "(edit test)");
+                }else{
+                    showStatistics.run();
+                }
             }
         }
         controller.label_phase.setTextFill(Paint.valueOf("blue"));
