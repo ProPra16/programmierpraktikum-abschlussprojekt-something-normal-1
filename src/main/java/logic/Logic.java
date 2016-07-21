@@ -4,6 +4,7 @@ package logic;
 import gui.GUIController;
 import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
+import tracking.Tracking;
 import vk.core.api.TestResult;
 import xml.*;
 
@@ -17,6 +18,7 @@ public class Logic {
     public Babysteps timer;
     public ExerciseList exerciseList;
     public Exercise currentExercise;
+    public Tracking timeLine;
     private XmlParser xml = new XmlParser("src/main/resources/exercises.xml");
 
 
@@ -46,6 +48,21 @@ public class Logic {
         } );
         controller.btn_nextPhase.setOnAction(event -> changePhase());
         controller.btn_backToRed.setOnAction(event -> {
+            String p = "";
+            switch (currentPhase){
+                case GREEN:
+                    p= "GREEN";
+                    break;
+                case RED:
+                    p= "RED";
+                    break;
+                case REFRACTOR:
+                    p= controller.label_phase.getText().contains("test") ? "REFRACTOR TEST": "REFRACTOR CODE";
+            }
+            if(currentExercise.getConfig().isTimetracking()) {
+                timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(), p);
+                timeLine.startPhase();
+            }
             changeToRed();
             if(currentExercise.getConfig().isBabysteps()) startNewBabysteps();
             controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
@@ -62,6 +79,10 @@ public class Logic {
         controller.btn_nextPhase.setDisable(true);
         controller.btn_compileTest.setDisable(false);
         if(currentExercise.getConfig().isBabysteps()) { startNewBabysteps(); }
+        if(currentExercise.getConfig().isTimetracking()) {
+            timeLine = new Tracking();
+            timeLine.startPhase();
+        }
         changeToRed();
     }
 
@@ -111,6 +132,21 @@ public class Logic {
     }
 
     public void changePhase() {
+        String p = "";
+        switch (currentPhase){
+            case GREEN:
+                p= "GREEN";
+                break;
+            case RED:
+                p= "RED";
+                break;
+            case REFRACTOR:
+                p= controller.label_phase.getText().contains("test") ? "REFRACTOR TEST": "REFRACTOR CODE";
+        }
+        if(currentExercise.getConfig().isTimetracking()) {
+            timeLine.addEntryWithCurrentTime(currentExercise.getClassList().get().getClassContent(), currentExercise.getTestList().get().getTestContent(), p);
+            timeLine.startPhase();
+        }
         switch (currentPhase) {
             case RED:
                 changeToGreen();
