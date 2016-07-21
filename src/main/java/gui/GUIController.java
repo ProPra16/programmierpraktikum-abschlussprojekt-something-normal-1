@@ -27,6 +27,8 @@ public class GUIController implements Initializable {
     public TextArea textArea_code;
     @FXML
     public TextArea textArea_console;
+    @FXML
+    public Button btn_backToRed;
 
     public Model model;
 
@@ -41,6 +43,10 @@ public class GUIController implements Initializable {
             System.out.println("Item Selected");
         });
 
+    }
+
+    public void textareaChanged(){
+        btn_nextPhase.setDisable(true);
     }
 
 }
