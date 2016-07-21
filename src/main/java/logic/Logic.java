@@ -1,5 +1,6 @@
 package logic;
 
+
 import gui.GUIController;
 import javafx.scene.control.*;
 import vk.core.api.TestResult;
@@ -19,6 +20,8 @@ public class Logic {
     public ExerciseList exerciseList;
     public Exercise currentExercise;
     private XmlParser xml = new XmlParser("src/main/resources/exercises.xml");
+    private double startingTime;
+
 
     public Logic(GUIController controller){
         currentPhase = Phase.STOP;
@@ -112,7 +115,7 @@ public class Logic {
         }
     }
 
-    public void changePhase(){
+    public void changePhase() {
         switch (currentPhase) {
             case RED:
                 changeToGreen();
@@ -125,6 +128,7 @@ public class Logic {
         }
         controller.btn_nextPhase.setDisable(true);
     }
+
 
     private void changeToGreen(){
         currentPhase = Phase.GREEN;

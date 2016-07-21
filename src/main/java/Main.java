@@ -15,7 +15,7 @@ public class Main extends Application {
         FXMLLoader rootloader = new FXMLLoader(getClass().getResource("/main.fxml"));
         Parent root = rootloader.load();
         primaryStage.setTitle("TDDT");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1152,864));
         primaryStage.show();
         TDDTLogic = new Logic((GUIController)rootloader.getController());
     }
