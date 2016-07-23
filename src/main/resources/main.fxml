@@ -58,5 +58,6 @@
         </FXCollections>
       </items>
     </ComboBox>
+    <Button fx:id="save" layoutX="839.0" layoutY="740.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="113.0" text="Save" />
   </children>
 </AnchorPane>
