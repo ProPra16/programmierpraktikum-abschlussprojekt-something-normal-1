@@ -17,6 +17,7 @@ public class GUIController implements Initializable {
     public Label label_time,label_phase;
     public Button btn_nextPhase;
     public Button btn_compileTest;
+    public Button save;
     public ComboBox<Exercise> combo_exercises;
     public TextArea textArea_test;
     public TextArea textArea_code;
