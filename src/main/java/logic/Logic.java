@@ -22,9 +22,10 @@ public class Logic {
     public Tracking timeLine;
     public Runnable showStatistics;
     private XmlParser xml = new XmlParser("src/main/resources/exercises.xml");
-
+    FileManager fileManager;
 
     public Logic(GUIController controller, Runnable showStatistics){
+        fileManager = new FileManager();
         currentPhase = Phase.STOP;
         this.showStatistics = showStatistics;
         this.controller = controller;
@@ -68,23 +69,13 @@ public class Logic {
             }
             changeToRed();
             if(currentExercise.getConfig().isBabysteps()) startNewBabysteps();
-            controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
+         // controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
             controller.textArea_test.setText(currentExercise.getTestList().get().getTestContent());
         });
+
          controller.save.setOnAction(event -> {
-            BufferedWriter writer = null, writer2 = null;
-                //path to the file must be adjusted
-            try{writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("C:/Projekt/programmierpraktikum-abschlussprojekt-something-normal-1-master/src/test.txt"), "UTF-8"));
-                writer2 = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("C:/Projekt/programmierpraktikum-abschlussprojekt-something-normal-1-master/src/program.txt"), "UTF-8"));
-                writer.write(controller.textArea_test.getText());
-                writer2.write(controller.textArea_code.getText());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }   finally {
-                try {writer.close();writer2.close();} catch (Exception e){}}
-        });
+             fileManager.save(controller.textArea_test.getText(),controller.textArea_code.getText(),currentExercise.getName());
+         });
     }
 
 
@@ -122,26 +113,27 @@ public class Logic {
                 result = -2;
             }
         }
-        controller.textArea_console.setText(controller.textArea_console.getText()+"\n"+compilation+"\n"+testing);
+        controller.textArea_console.appendText(compilation+"\n"+testing+"\n");
+
         updatePhaseChanging(result);
     }
 
     public void updatePhaseChanging(int result){
         if(currentPhase == Phase.RED){
             if(result < 0 || result == 1){
-                controller.textArea_console.setText(controller.textArea_console.getText()+"\nYou can change Phase now");
+                controller.textArea_console.appendText("You can change Phase now\n");
                 controller.btn_nextPhase.setDisable(false);
             }
         }
         if(currentPhase == Phase.GREEN){
             if(result == 0){
-                controller.textArea_console.setText(controller.textArea_console.getText()+"\nYou can change Phase now");
+                controller.textArea_console.appendText("You can change Phase now\n");
                 controller.btn_nextPhase.setDisable(false);
             }
         }
         if(currentPhase == Phase.REFRACTOR){
             if(result == 0){
-                controller.textArea_console.setText(controller.textArea_console.getText()+"\nYou can change Phase now");
+                controller.textArea_console.appendText("You can change Phase now\n");
                 controller.btn_nextPhase.setDisable(false);
             }
         }
