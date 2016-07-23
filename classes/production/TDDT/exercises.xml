@@ -9,7 +9,7 @@ public class RomanNumberConverter {
 </class>
 </classes>
 <tests>
-<test name="RomanNumberConverterTest">
+<test name="RomanNumbersTest">
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class RomanNumbersTest {
@@ -24,7 +24,7 @@ public void testSomething() {
 <timetracking value="True" />
 </config>
 </exercise>
-<exercise name="Roemische Zahlen">
+<exercise name="Roemische Zahlen (babysteps)">
 <description>Konvertiert arabische in römische Zahlen.</description>
 <classes>
 <class name="RomanNumberConverter">
@@ -33,7 +33,7 @@ public class RomanNumberConverter {
 </class>
 </classes>
 <tests>
-<test name="RomanNumberConverterTest">
+<test name="RomanNumbersTest">
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class RomanNumbersTest {
@@ -44,7 +44,7 @@ public void testSomething() {
 </test>
 </tests>
 <config>
-<babysteps value="True" time="2:00" />
+<babysteps value="True" time="0:10" />
 <timetracking value="True" />
 </config>
 </exercise>
