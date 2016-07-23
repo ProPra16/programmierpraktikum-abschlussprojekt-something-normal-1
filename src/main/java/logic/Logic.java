@@ -69,7 +69,20 @@ public class Logic {
             if(currentExercise.getConfig().isBabysteps()) startNewBabysteps();
             controller.textArea_code.setText(currentExercise.getClassList().get().getClassContent());
             controller.textArea_test.setText(currentExercise.getTestList().get().getTestContent());
-
+        });
+         controller.save.setOnAction(event -> {
+            BufferedWriter writer = null, writer2 = null;
+                //path to the file must be adjusted
+            try{writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("C:/Projekt/programmierpraktikum-abschlussprojekt-something-normal-1-master/src/test.txt"), "UTF-8"));
+                writer2 = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("C:/Projekt/programmierpraktikum-abschlussprojekt-something-normal-1-master/src/program.txt"), "UTF-8"));
+                writer.write(controller.textArea_test.getText());
+                writer2.write(controller.textArea_code.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }   finally {
+                try {writer.close();writer2.close();} catch (Exception e){}}
         });
     }
 
